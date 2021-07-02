@@ -132,3 +132,5 @@ dmypy.json
 Practice.ipynb
 app-orig.py
 .vscode
+templates/orig_index.html
+Mission_to_Mars_Challenge_starter_code.ipynb

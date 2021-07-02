@@ -18,6 +18,9 @@ def scrape_all():
     executable_path = {'executable_path': ChromeDriverManager().install()}
     browser = Browser('chrome', **executable_path, headless=True)
 
+    # Set our news title and paragraph variables 
+    news_title, news_paragraph = mars_news(browser)
+
     # Run all scraping functions and store results in a dictionary.
     # Where did this come from?
     data = {
@@ -28,8 +31,6 @@ def scrape_all():
         "last_modified": dt.datetime.now()
     }
 
-    # Set our news title and paragraph variables 
-    news_title, news_paragraph = mars_news(browser)
     # Stop webdriver and return data
     browser.quit()
     return data
@@ -113,4 +114,3 @@ def mars_facts():
     # Convert dataframe into HTML format, add bootstrap
     return df.to_html()
 
-    # browser.quit() <- This is no longer needed. 
