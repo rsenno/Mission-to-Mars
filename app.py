@@ -39,6 +39,7 @@ def scrape():
     # Reference the scrape_all function in the scraping.py file exported from Jupyter Notebook.
     # What scraping.py file?!
     mars_data = scraping.scrape_all()
+    print(mars_data)
     # Update the mars db. {} is an empty JSON. upsert creates db if it doesn't exist and updates it. 
     mars.update({}, mars_data, upsert=True)
     return redirect('/', code=302)

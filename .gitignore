@@ -134,3 +134,8 @@ app-orig.py
 .vscode
 templates/orig_index.html
 Mission_to_Mars_Challenge_starter_code.ipynb
+templates/orig_challenge_index.html
+Mission_to_Mars_Challenge_initial_attempt.ipynb
+Screen_shots/
+orig_scraping.py
+Challenge_practice.ipynb

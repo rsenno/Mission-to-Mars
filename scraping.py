@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 # The above are typically optional. Most environments use utf-8 coding,
-# and we can specify python on the command line when execute the code, 
+# and we can specify python on the command line when executing the code, 
 # but it doesn't hurt to be explicit, and might occasionally help. 
 
 # Import Splinter, BeautifulSoup, and Pandas
@@ -21,14 +21,16 @@ def scrape_all():
     # Set our news title and paragraph variables 
     news_title, news_paragraph = mars_news(browser)
 
+
     # Run all scraping functions and store results in a dictionary.
     # Where did this come from?
     data = {
+        "last_modified": dt.datetime.now(),
         "news_title": news_title,
         "news_paragraph": news_paragraph,
         "featured_image": featured_image(browser),
         "facts": mars_facts(),
-        "last_modified": dt.datetime.now()
+        "hemispheres": get_hemispheres(browser)
     }
 
     # Stop webdriver and return data
@@ -114,3 +116,33 @@ def mars_facts():
     # Convert dataframe into HTML format, add bootstrap
     return df.to_html()
 
+def get_hemispheres(browser):
+    # # D1: Scrape High-Resolution Mars’ Hemisphere Images and Titles
+
+    # 2. Create a list to hold the images and titles.
+    hemisphere_image_urls = []
+    # print("Hello 1")
+    
+        # ### Hemispheres
+        # 1. Use browser to visit the URL 
+    url = 'https://marshemispheres.com/'
+    browser.visit(url)
+
+    # 3. Write code to retrieve the image urls and titles for each hemisphere.
+    links_found = browser.links.find_by_partial_text('Hemisphere Enhanced')
+
+    # print(links_found)
+    for elem in range(len(links_found)):
+        hemisphere = {}
+        browser.links.find_by_partial_text('Hemisphere Enhanced')[elem].click()
+        first_occurence = browser.find_by_text('Sample').first
+        image_url = first_occurence['href']
+        hemisphere['img_url'] = image_url
+        hemisphere['title'] = browser.find_by_css('h2.title').text
+        hemisphere_image_urls.append(hemisphere)
+        # print(hemisphere_image_urls)
+        browser.back()
+
+    return hemisphere_image_urls
+ 
+# print(scrape_all())
